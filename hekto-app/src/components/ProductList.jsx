@@ -1,9 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllProducts } from "../services/productService"; // Adjust the path as necessary
+import { fetchAllProducts } from "../services/productService";
+import {
+  Box,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  IconButton,
+  Rating,
+} from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import { styled } from "@mui/material/styles";
 
-import { Card, Box, Button } from "@mui/material";
+const StyledCard = styled(CardMedia)({
+  width: "100%",
+  margin: "20px auto",
+  objectFit: "cover",
+  borderRadius: "16px",
+  boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
+  overflow: "visible",
+});
 
-const ProductsList = () => {
+const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,22 +54,48 @@ const ProductsList = () => {
   }
 
   return (
-    <div>
+    <Grid
+      container
+      spacing={4}
+      style={{ padding: "40px" }}
+      justifyContent="center"
+    >
       {products.map((product) => (
-        <Box key={product.id} marginBottom={2}>
-          {" "}
-          {/* Adds space below each card */}
-          <Card key={product.id}>
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
-            <p>Stock: {product.stock}</p>
-            <Button>Add to Cart</Button>
-          </Card>
-        </Box>
+        <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+          <StyledCard>
+            <CardMedia
+              component="img"
+              image={product.images[0] || "https://via.placeholder.com/150"}
+              alt={product.title}
+              style={{ height: "345px", width: "100%", objectFit: "contain" }}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="h2">
+                {product.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {product.description}
+              </Typography>
+              <Typography variant="body1" color="text.primary">
+                ${product.price.toFixed(2)}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites">
+                <FavoriteBorderIcon />
+              </IconButton>
+              <IconButton aria-label="add to cart">
+                <ShoppingCartIcon />
+              </IconButton>
+              <IconButton aria-label="compare">
+                <CompareArrowsIcon />
+              </IconButton>
+            </CardActions>
+          </StyledCard>
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 
-export default ProductsList;
+export default ProductList;
