@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import ProductList from "./components/ProductList";
 import Sidebar from "./components/Sidebar";
 import SearchBar from "./components/SearchBar";
-import SortOptions from "./components/SortOptions";
-import ViewSwitcher from "./components/ViewSwitcher";
+import SortAndViewControls from "./components/SortAndViewControls";
 import CustomPagination from "./components/Pagination";
-import PageSizeSelector from "./components/PageSizeSelector";
 import { fetchProducts } from "./services/productService";
 
 function ProductPage() {
@@ -18,7 +16,7 @@ function ProductPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(10);
   const [totalProducts, setTotalProducts] = useState(0); // Initialize totalProducts state
-  const totalPages = Math.ceil(totalProducts / productsPerPage); // Move this inside the component after state declaration
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   // useEffect(() => {
   //   const fetchProducts = async () => {
@@ -42,16 +40,25 @@ function ProductPage() {
   // }, [currentPage, productsPerPage]);
 
   useEffect(() => {
-    console.log(`Current page size: ${productsPerPage}`);
-    console.log(`Current page number: ${currentPage}`);
-    fetchProducts((currentPage - 1) * productsPerPage, productsPerPage)
+    const orderParams =
+      sortOrder === "priceLowHigh"
+        ? { sortBy: "price", order: "asc" }
+        : { sortBy: "price", order: "desc" };
+    console.log(`Current page size: ${productsPerPage}, Sorting: ${sortOrder}`);
+    fetchProducts({
+      skip: (currentPage - 1) * productsPerPage,
+      limit: productsPerPage,
+      fields: "title,price,images",
+      ...orderParams,
+    })
       .then((data) => {
         setProducts(data.products);
         setTotalProducts(data.total);
-        console.log(`Fetched products:`, data.products.length);
+        console.log(`Fetched products:`, data.products);
       })
       .catch((error) => console.error("Failed to fetch products:", error));
-  }, [currentPage, productsPerPage]);
+  }, [currentPage, productsPerPage, sortOrder]);
+
   const handleChange = (event, value) => {
     setCurrentPage(value); // Update the current page
   };
@@ -60,14 +67,16 @@ function ProductPage() {
       <Sidebar setFilters={setFilters} />
       <div className="product-listing">
         <SearchBar setSearchQuery={setSearchQuery} />
-        <SortOptions setSortOrder={setSortOrder} />
-        <ViewSwitcher viewType={viewType} setViewType={setViewType} />
-        <PageSizeSelector
-          pageSize={productsPerPage}
-          setPageSize={setProductsPerPage}
+        <SortAndViewControls
+          productsPerPage={productsPerPage}
+          setProductsPerPage={setProductsPerPage}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+          viewType={viewType}
+          setViewType={setViewType}
         />
+
         <ProductList
-          key={productsPerPage}
           filters={filters}
           searchQuery={searchQuery}
           sortOrder={sortOrder}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllProducts } from "../services/productService";
 import {
   Box,
   Grid,
@@ -65,16 +64,10 @@ const ProductList = ({ products }) => {
           <StyledCard>
             <CardMedia
               component="img"
-              // image={product.images[0] || "https://via.placeholder.com/150"}
-              // image={
-              //   product.images && product.images.length > 0
-              //     ? product.images[0]
-              //     : "https://via.placeholder.com/150"
-              // }
               image={
                 product.images && product.images.length > 0
                   ? product.images[0]
-                  : "https://picsum.photos/200"
+                  : "https://via.placeholder.com/150"
               }
               alt={product.title}
               style={{ height: "345px", width: "100%", objectFit: "contain" }}

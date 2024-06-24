@@ -33,15 +33,17 @@ export const fetchProductById = async (id) => {
     throw error;
   }
 };
-
-export const fetchProducts = async (
+// Fetch products based on filters
+export const fetchProducts = async ({
   skip = 0,
   limit = 10,
-  fields = "title,price,thumbnail"
-) => {
+  sortBy = "id", // default sort
+  order = "asc", // default order
+  fields = "title,price,images", // now includes images
+}) => {
   try {
     const response = await fetch(
-      `https://dummyjson.com/products?limit=${limit}&skip=${skip}&select=${fields}`
+      `https://dummyjson.com/products?limit=${limit}&skip=${skip}&select=${fields}&sortBy=${sortBy}&order=${order}`
     );
     const data = await response.json();
     if (response.ok) {
