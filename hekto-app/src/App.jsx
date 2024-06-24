@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar";
 import SortOptions from "./components/SortOptions";
 import ViewSwitcher from "./components/ViewSwitcher";
 import CustomPagination from "./components/Pagination";
+import PageSizeSelector from "./components/PageSizeSelector";
 import { fetchProducts } from "./services/productService";
 
 function ProductPage() {
@@ -32,12 +33,24 @@ function ProductPage() {
 
   //   fetchProducts();
   // }, [currentPage, productsPerPage]);
+  // useEffect(() => {
+  //   const skip = (currentPage - 1) * productsPerPage;
+  //   fetchProducts(skip, productsPerPage).then((data) => {
+  //     setProducts(data.products);
+  //     setTotalProducts(data.total);
+  //   });
+  // }, [currentPage, productsPerPage]);
+
   useEffect(() => {
-    const skip = (currentPage - 1) * productsPerPage;
-    fetchProducts(skip, productsPerPage).then((data) => {
-      setProducts(data.products);
-      setTotalProducts(data.total);
-    });
+    console.log(`Current page size: ${productsPerPage}`);
+    console.log(`Current page number: ${currentPage}`);
+    fetchProducts((currentPage - 1) * productsPerPage, productsPerPage)
+      .then((data) => {
+        setProducts(data.products);
+        setTotalProducts(data.total);
+        console.log(`Fetched products:`, data.products.length);
+      })
+      .catch((error) => console.error("Failed to fetch products:", error));
   }, [currentPage, productsPerPage]);
   const handleChange = (event, value) => {
     setCurrentPage(value); // Update the current page
@@ -49,7 +62,12 @@ function ProductPage() {
         <SearchBar setSearchQuery={setSearchQuery} />
         <SortOptions setSortOrder={setSortOrder} />
         <ViewSwitcher viewType={viewType} setViewType={setViewType} />
+        <PageSizeSelector
+          pageSize={productsPerPage}
+          setPageSize={setProductsPerPage}
+        />
         <ProductList
+          key={productsPerPage}
           filters={filters}
           searchQuery={searchQuery}
           sortOrder={sortOrder}

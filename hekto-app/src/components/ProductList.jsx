@@ -25,33 +25,33 @@ const StyledCard = styled(CardMedia)({
   overflow: "visible",
 });
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const ProductList = ({ products }) => {
+  // const [products, setProducts] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const products = await fetchAllProducts();
-        setProducts(products);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     try {
+  //       const products = await fetchAllProducts();
+  //       setProducts(products);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setError(error.message);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    getProducts();
-  }, []);
+  //   getProducts();
+  // }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   return (
     <Grid
@@ -65,7 +65,17 @@ const ProductList = () => {
           <StyledCard>
             <CardMedia
               component="img"
-              image={product.images[0] || "https://via.placeholder.com/150"}
+              // image={product.images[0] || "https://via.placeholder.com/150"}
+              // image={
+              //   product.images && product.images.length > 0
+              //     ? product.images[0]
+              //     : "https://via.placeholder.com/150"
+              // }
+              image={
+                product.images && product.images.length > 0
+                  ? product.images[0]
+                  : "https://picsum.photos/200"
+              }
               alt={product.title}
               style={{ height: "345px", width: "100%", objectFit: "contain" }}
             />
