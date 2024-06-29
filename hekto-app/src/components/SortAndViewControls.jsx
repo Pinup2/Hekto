@@ -28,6 +28,8 @@ const SortAndViewControls = ({
   viewType,
   setViewType,
 }) => {
+  console.log("Current viewType:", viewType);
+
   return (
     <Box
       display="flex"
@@ -57,20 +59,26 @@ const SortAndViewControls = ({
           onChange={(e) => setSortOrder(e.target.value)}
           label="Sort By"
         >
-          <MenuItem value="priceHighLow">Price: High -> Low</MenuItem>
-          <MenuItem value="priceLowHigh">Price: Low -> High</MenuItem>
+          <MenuItem value="priceHighLow">Price: High &gt; Low</MenuItem>
+          <MenuItem value="priceLowHigh">Price: Low &gt; High</MenuItem>
         </Select>
       </FormControl>
 
       <Box>
         <IconButton
-          onClick={() => setViewType("grid")}
+          onClick={() => {
+            console.log("Switching to grid view");
+            setViewType("grid");
+          }}
           color={viewType === "grid" ? "primary" : "default"}
         >
           <GridViewIcon />
         </IconButton>
         <IconButton
-          onClick={() => setViewType("list")}
+          onClick={() => {
+            console.log("Switching to list view");
+            setViewType("list");
+          }}
           color={viewType === "list" ? "primary" : "default"}
         >
           <ViewListIcon />

@@ -15,36 +15,14 @@ function ProductPage() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(10);
-  const [totalProducts, setTotalProducts] = useState(0); // Initialize totalProducts state
-  const totalPages = Math.ceil(totalProducts / productsPerPage);
-
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const skip = (currentPage - 1) * productsPerPage; // Calculate 'skip' based on current page
-  //     const data = await fetchAllProducts(skip, productsPerPage);
-  //     // const data = await fetchAllProducts(skip, limit);
-
-  //     const limit = productsPerPage;
-  //     setProducts(data.products);
-  //     setTotalProducts(data.total);
-  //   };
-
-  //   fetchProducts();
-  // }, [currentPage, productsPerPage]);
-  // useEffect(() => {
-  //   const skip = (currentPage - 1) * productsPerPage;
-  //   fetchProducts(skip, productsPerPage).then((data) => {
-  //     setProducts(data.products);
-  //     setTotalProducts(data.total);
-  //   });
-  // }, [currentPage, productsPerPage]);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
     const orderParams =
       sortOrder === "priceLowHigh"
         ? { sortBy: "price", order: "asc" }
         : { sortBy: "price", order: "desc" };
-    console.log(`Current page size: ${productsPerPage}, Sorting: ${sortOrder}`);
+
     fetchProducts({
       skip: (currentPage - 1) * productsPerPage,
       limit: productsPerPage,
@@ -54,14 +32,19 @@ function ProductPage() {
       .then((data) => {
         setProducts(data.products);
         setTotalProducts(data.total);
-        console.log(`Fetched products:`, data.products);
       })
       .catch((error) => console.error("Failed to fetch products:", error));
   }, [currentPage, productsPerPage, sortOrder]);
 
   const handleChange = (event, value) => {
-    setCurrentPage(value); // Update the current page
+    setCurrentPage(value);
   };
+
+  const changeViewType = (newViewType) => {
+    console.log("Changing viewType to", newViewType);
+    setViewType(newViewType);
+  };
+
   return (
     <div className="product-page">
       <Sidebar setFilters={setFilters} />
@@ -73,9 +56,8 @@ function ProductPage() {
           sortOrder={sortOrder}
           setSortOrder={setSortOrder}
           viewType={viewType}
-          setViewType={setViewType}
+          setViewType={changeViewType}
         />
-
         <ProductList
           filters={filters}
           searchQuery={searchQuery}
@@ -86,7 +68,7 @@ function ProductPage() {
           products={products}
         />
         <CustomPagination
-          count={totalPages}
+          count={Math.ceil(totalProducts / productsPerPage)}
           page={currentPage}
           onChange={handleChange}
         />
