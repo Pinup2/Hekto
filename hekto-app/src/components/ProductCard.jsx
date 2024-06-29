@@ -1,16 +1,3 @@
-// import React from "react";
-
-// const ProductCard = ({ product }) => {
-//   return (
-//     <div className="product-card">
-//       <h2>{product.title}</h2>
-//       <p>{product.description}</p>
-//       <p>${product.price.toFixed(2)}</p>
-//     </div>
-//   );
-// };
-
-// export default ProductCard;
 import React from "react";
 import {
   Card,
@@ -28,20 +15,29 @@ import { styled } from "@mui/material/styles";
 const ProductCard = ({ product, viewType }) => {
   return (
     <Card style={{ marginBottom: viewType === "grid" ? "0" : "20px" }}>
-      <CardMedia
-        component="img"
-        image={
-          product.images && product.images.length > 0
-            ? product.images[0]
-            : "https://via.placeholder.com/150"
-        }
-        alt={product.title}
-        style={{
-          height: viewType === "grid" ? "345px" : "200px",
-          width: "100%",
-          objectFit: "contain", // Adjust objectFit as needed
-        }}
-      />
+      {product.images && product.images.length > 0 ? (
+        <CardMedia
+          component="img"
+          image={product.images[0]} // Ensure product.images[0] is a valid URL
+          alt={product.title}
+          style={{
+            height: viewType === "grid" ? "345px" : "200px",
+            width: "100%",
+            objectFit: "contain", // Adjust objectFit as needed
+          }}
+        />
+      ) : (
+        <CardMedia
+          component="img"
+          image="https://via.placeholder.com/150" // Placeholder image URL
+          alt="Placeholder"
+          style={{
+            height: viewType === "grid" ? "345px" : "200px",
+            width: "100%",
+            objectFit: "contain", // Adjust objectFit as needed
+          }}
+        />
+      )}
       <CardContent>
         <Typography gutterBottom variant="h6" component="h2">
           {product.title}
