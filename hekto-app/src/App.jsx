@@ -5,9 +5,16 @@ import SearchBar from "./components/SearchBar";
 import SortAndViewControls from "./components/SortAndViewControls";
 import CustomPagination from "./components/Pagination";
 import { fetchProducts } from "./services/productService";
+import "./styles/ProductPage.css";
 
 function ProductPage() {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    brand: [],
+    discount: [],
+    rating: [],
+    categories: [],
+    priceRange: "",
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("priceLowHigh");
   const [viewType, setViewType] = useState("grid");
@@ -26,15 +33,16 @@ function ProductPage() {
     fetchProducts({
       skip: (currentPage - 1) * productsPerPage,
       limit: productsPerPage,
-      fields: "title,price,images",
+      fields: "title,price,images,description,discountPercentage,rating",
       ...orderParams,
+      filters,
     })
       .then((data) => {
         setProducts(data.products);
         setTotalProducts(data.total);
       })
       .catch((error) => console.error("Failed to fetch products:", error));
-  }, [currentPage, productsPerPage, sortOrder]);
+  }, [currentPage, productsPerPage, sortOrder, filters]);
 
   const handleChange = (event, value) => {
     setCurrentPage(value);
@@ -47,7 +55,7 @@ function ProductPage() {
 
   return (
     <div className="product-page">
-      <Sidebar setFilters={setFilters} />
+      <Sidebar filters={filters} setFilters={setFilters} />
       <div className="product-listing">
         <SearchBar setSearchQuery={setSearchQuery} />
         <SortAndViewControls
