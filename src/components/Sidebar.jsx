@@ -4,9 +4,6 @@ import {
   FormControlLabel,
   FormGroup,
   Typography,
-  Radio,
-  RadioGroup,
-  FormControl,
 } from "@mui/material";
 
 const Sidebar = ({ filters, setFilters }) => {
@@ -18,36 +15,23 @@ const Sidebar = ({ filters, setFilters }) => {
         : prevFilters[category].filter((item) => item !== event.target.name),
     }));
   };
-  const handlePriceRangeChange = (e) => {
-    const newRange = e.target.value.replace("$", "").replace(" ", "");
-    setFilters((prevFilters) => ({ ...prevFilters, priceRange: newRange }));
-  };
-
-  // Example function that updates the price range
-  const updatePriceRange = (newRange) => {
-    console.log("Attempting to update priceRange to:", newRange);
-
-    setFilters((prevFilters) => ({ ...prevFilters, priceRange: newRange }));
-  };
-
-  // Add this in your function that handles the update
-  console.log("Updated Filters:", filters);
 
   const handleRadioChange = (event) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      priceRange: event.target.value,
+      priceRange: event.target.value.replace("$", "").replace(" ", ""),
     }));
   };
 
+  console.log("Updated Filters:", filters);
+
   const categories = [
-    "Watches",
-    "Headphones",
-    "Laptop",
-    "Game Console",
-    "Clothe",
-    "Jewellery",
-    "Perfume",
+    "beauty",
+    "fragrances",
+    "furniture",
+    "groceries",
+    "home-decoration",
+    "kitchen-accessories",
   ];
 
   return (
@@ -55,144 +39,71 @@ const Sidebar = ({ filters, setFilters }) => {
       <div className="filter-section">
         <Typography variant="h6">Product Brand</Typography>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="Casio"
-                onChange={(e) => handleCheckboxChange(e, "brand")}
-              />
-            }
-            label="Casio"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="Apple"
-                onChange={(e) => handleCheckboxChange(e, "brand")}
-              />
-            }
-            label="Apple"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="Sony"
-                onChange={(e) => handleCheckboxChange(e, "brand")}
-              />
-            }
-            label="Sony"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="Nike"
-                onChange={(e) => handleCheckboxChange(e, "brand")}
-              />
-            }
-            label="Nike"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="Vke"
-                onChange={(e) => handleCheckboxChange(e, "brand")}
-              />
-            }
-            label="Vke"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="Glossiness"
-                onChange={(e) => handleCheckboxChange(e, "brand")}
-              />
-            }
-            label="Glossiness"
-          />
+          {[
+            "Essence",
+            "Glamour Beauty",
+            "Velvet Touch",
+            "Chic Cosmetics",
+            "Nail Couture",
+            "Calvin Klein",
+            "Chanel",
+            "Dior",
+            "Dolce & Gabbana",
+            "Gucci",
+            "Annibale Colombo",
+            "Furniture Co.",
+            "Knoll",
+            "Bath Trends",
+          ].map((brand) => (
+            <FormControlLabel
+              key={brand}
+              control={
+                <Checkbox
+                  name={brand}
+                  onChange={(e) => handleCheckboxChange(e, "brand")}
+                />
+              }
+              label={brand}
+            />
+          ))}
         </FormGroup>
       </div>
 
       <div className="filter-section">
         <Typography variant="h6">Discount Offer</Typography>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="20% Cashback"
-                onChange={(e) => handleCheckboxChange(e, "discount")}
+          {["20% Cashback", "5% Cashback Offer", "25% Discount Offer"].map(
+            (discount) => (
+              <FormControlLabel
+                key={discount}
+                control={
+                  <Checkbox
+                    name={discount}
+                    onChange={(e) => handleCheckboxChange(e, "discount")}
+                  />
+                }
+                label={discount}
               />
-            }
-            label="20% Cashback"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="5% Cashback Offer"
-                onChange={(e) => handleCheckboxChange(e, "discount")}
-              />
-            }
-            label="5% Cashback Offer"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="25% Discount Offer"
-                onChange={(e) => handleCheckboxChange(e, "discount")}
-              />
-            }
-            label="25% Discount Offer"
-          />
+            )
+          )}
         </FormGroup>
       </div>
 
       <div className="filter-section">
         <Typography variant="h6">Rating</Typography>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="5"
-                onChange={(e) => handleCheckboxChange(e, "rating")}
-              />
-            }
-            label="★★★★★"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="4"
-                onChange={(e) => handleCheckboxChange(e, "rating")}
-              />
-            }
-            label="★★★★☆"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="3"
-                onChange={(e) => handleCheckboxChange(e, "rating")}
-              />
-            }
-            label="★★★☆☆"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="2"
-                onChange={(e) => handleCheckboxChange(e, "rating")}
-              />
-            }
-            label="★★☆☆☆"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="1"
-                onChange={(e) => handleCheckboxChange(e, "rating")}
-              />
-            }
-            label="★☆☆☆☆"
-          />
+          {["5", "4", "3", "2", "1"].map((rating) => (
+            <FormControlLabel
+              key={rating}
+              control={
+                <Checkbox
+                  name={rating}
+                  onChange={(e) => handleCheckboxChange(e, "rating")}
+                />
+              }
+              label={`${"★".repeat(rating)}${"☆".repeat(5 - rating)}`}
+            />
+          ))}
         </FormGroup>
       </div>
 
@@ -216,29 +127,20 @@ const Sidebar = ({ filters, setFilters }) => {
 
       <div className="filter-section">
         <Typography variant="h6">Price</Typography>
-        <RadioGroup name="priceRange" onChange={handleRadioChange}>
-          <FormControlLabel
-            value="$0 - $150"
-            control={<Radio />}
-            label="$0 - $150"
-          />
-          <FormControlLabel
-            value="$150 - $350"
-            control={<Radio />}
-            label="$150 - $350"
-          />
-          <FormControlLabel
-            value="$350 - $500"
-            control={<Radio />}
-            label="$350 - $500"
-          />
-          <FormControlLabel
-            value="$550 - $800"
-            control={<Radio />}
-            label="$550 - $800"
-          />
-          <FormControlLabel value="$800+" control={<Radio />} label="$800+" />
-        </RadioGroup>
+        <FormGroup>
+          {["0-150", "150-350", "350-500", "550-800", "800+"].map((range) => (
+            <FormControlLabel
+              key={range}
+              control={
+                <Checkbox
+                  name={range}
+                  onChange={(e) => handleCheckboxChange(e, "priceRange")}
+                />
+              }
+              label={`$${range.replace("-", " - $")}`}
+            />
+          ))}
+        </FormGroup>
       </div>
     </div>
   );

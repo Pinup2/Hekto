@@ -6,19 +6,25 @@ import {
   CardActions,
   Typography,
   IconButton,
+  Box,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-import { styled } from "@mui/material/styles";
+import StarIcon from "@mui/icons-material/Star";
 
 const ProductCard = ({ product, viewType }) => {
+  const discountedPrice = (
+    product.price *
+    (1 - product.discountPercentage / 100)
+  ).toFixed(2);
+
   return (
     <Card style={{ marginBottom: viewType === "grid" ? "0" : "20px" }}>
       {product.images && product.images.length > 0 ? (
         <CardMedia
           component="img"
-          image={product.images[0]} // Ensure product.images[0] is a valid URL
+          image={product.images[0]}
           alt={product.title}
           style={{
             height: viewType === "grid" ? "345px" : "200px",
@@ -42,11 +48,28 @@ const ProductCard = ({ product, viewType }) => {
         <Typography gutterBottom variant="h6" component="h2">
           {product.title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {product.description}
+        <Box display="flex" alignItems="center">
+          {[...Array(5)].map((_, index) => (
+            <StarIcon
+              key={index}
+              style={{
+                color: index < product.rating ? "gold" : "lightgray",
+              }}
+            />
+          ))}
+        </Box>
+        <Typography variant="h6" color="textPrimary">
+          ${discountedPrice}
         </Typography>
-        <Typography variant="body1" color="text.primary">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          style={{ textDecoration: "line-through" }}
+        >
           ${product.price.toFixed(2)}
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          {product.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

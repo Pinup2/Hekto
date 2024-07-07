@@ -1,19 +1,18 @@
-import axios from "axios";
+// // import axios from "axios";
 
-const baseUrl = "https://dummyjson.com/products";
+// const baseUrl = "https://dummyjson.com/products";
 
-// Fetch all products
-export const fetchAllProducts = async () => {
-  try {
-    const response = await axios.get(baseUrl);
-    return response.data.products;
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    throw error;
-  }
-};
+// // Fetch all products
+// export const fetchAllProducts = async () => {
+//   try {
+//     const response = await axios.get(baseUrl);
+//     return response.data.products;
+//   } catch (error) {
+//     console.error("Error fetching products:", error);
+//     throw error;
+//   }
+// };
 
-// Fetch products by category
 export const fetchProductsByCategory = async (category) => {
   try {
     const response = await axios.get(`${baseUrl}/category/${category}`);
@@ -33,54 +32,8 @@ export const fetchProductById = async (id) => {
     throw error;
   }
 };
-// Fetch products based on filters
-// export const fetchProducts = async ({
-//   skip = 0,
-//   limit = 10,
-//   sortBy = "id", // default sort, note: might need manual sorting if JSON Server doesn't support
-//   order = "asc", // default order, note: might need manual sorting if JSON Server doesn't support
-//   fields = "title,price,images", // fields selection not supported by JSON Server, handled in code if necessary
-// }) => {
-//   try {
-//     // Base URL for JSON Server
-//     const baseURL = `http://localhost:3000/products`;
 
-//     const response = await fetch(`${baseURL}?_start=${skip}&_limit=${limit}`);
-//     let data = await response.json();
-
-//     // If JSON Server doesn't support sorting, you would need to implement it manually:
-//     if (sortBy && order) {
-//       data = data.sort((a, b) => {
-//         if (order === "asc") {
-//           return a[sortBy] > b[sortBy] ? 1 : -1;
-//         } else {
-//           return a[sortBy] < b[sortBy] ? 1 : -1;
-//         }
-//       });
-//     }
-
-//     // If fields filtering is necessary, filter the fields manually:
-//     if (fields) {
-//       const fieldsArray = fields.split(",");
-//       data = data.map((item) => {
-//         const filteredItem = {};
-//         fieldsArray.forEach((field) => {
-//           filteredItem[field] = item[field];
-//         });
-//         return filteredItem;
-//       });
-//     }
-
-//     if (response.ok) {
-//       return { products: data, total: data.length }; // Adjust according to your total count handling
-//     } else {
-//       throw new Error(data.message || "Failed to fetch data");
-//     }
-//   } catch (error) {
-//     console.error("Error fetching products:", error);
-//     return { products: [], total: 0 }; // Safe fallback
-//   }
-// };
+// services/productService.js
 export const fetchProducts = async ({
   skip = 0,
   limit = 10,
@@ -91,7 +44,51 @@ export const fetchProducts = async ({
   try {
     const baseURL = `http://localhost:3000/products`;
     const response = await fetch(`${baseURL}?_start=${skip}&_limit=${limit}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const totalCount = response.headers.get("X-Total-Count");
+
     let data = await response.json();
+
+    console.log("Filters:", filters);
+
+    // Manual Filtering
+    if (filters.brand && filters.brand.length > 0) {
+      data = data.filter((product) => filters.brand.includes(product.brand));
+    }
+
+    if (filters.priceRange && filters.priceRange.length > 0) {
+      data = data.filter((product) => {
+        return filters.priceRange.some((range) => {
+          if (range === "800+") {
+            return product.price >= 800;
+          } else {
+            const [minPrice, maxPrice] = range.split("-").map(Number);
+            return product.price >= minPrice && product.price <= maxPrice;
+          }
+        });
+      });
+    }
+
+    if (filters.discount && filters.discount.length > 0) {
+      data = data.filter((product) => {
+        const discountString = `${product.discountPercentage}% Cashback`;
+        return filters.discount.includes(discountString);
+      });
+    }
+
+    if (filters.rating && filters.rating.length > 0) {
+      data = data.filter((product) =>
+        filters.rating.includes(String(Math.floor(product.rating)))
+      );
+    }
+
+    if (filters.categories && filters.categories.length > 0) {
+      data = data.filter((product) =>
+        filters.categories.includes(product.category)
+      );
+    }
 
     // Manual Sorting
     if (sortBy && order) {
@@ -100,24 +97,7 @@ export const fetchProducts = async ({
       );
     }
 
-    // Manual Filtering
-    if (filters.priceRange) {
-      const [minPrice, maxPrice] = filters.priceRange.split("-").map(Number);
-      console.log("Filtering with price range:", minPrice, maxPrice);
-      if (!isNaN(minPrice) && !isNaN(maxPrice)) {
-        data = data.filter(
-          (product) => product.price >= minPrice && product.price <= maxPrice
-        );
-      } else {
-        console.error("Invalid price range:", filters.priceRange);
-      }
-    }
-
-    if (response.ok) {
-      return { products: data, total: data.length };
-    } else {
-      throw new Error(data.message || "Failed to fetch data");
-    }
+    return { products: data, total: data.length };
   } catch (error) {
     console.error("Error fetching products:", error);
     return { products: [], total: 0 };
