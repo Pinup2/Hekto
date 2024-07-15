@@ -885,6 +885,7 @@
       "rating": 2.96,
       "stock": 9,
       "tags": ["fruits"],
+      "brand": "Fruits",
       "sku": "QTROUV79",
       "weight": 8,
       "dimensions": {
@@ -941,6 +942,7 @@
       "rating": 2.83,
       "stock": 96,
       "tags": ["meat"],
+      "brand": "Whole Foods",
       "sku": "BWWA2MSO",
       "weight": 9,
       "dimensions": {
@@ -997,6 +999,7 @@
       "rating": 2.88,
       "stock": 13,
       "tags": ["pet supplies", "cat food"],
+      "brand": "Whole Foods",
       "sku": "C3F8QN6O",
       "weight": 9,
       "dimensions": {
@@ -1053,6 +1056,7 @@
       "rating": 4.61,
       "stock": 69,
       "tags": ["meat"],
+      "brand": "Whole Foods",
       "sku": "G5YEHW7B",
       "weight": 7,
       "dimensions": {
@@ -1110,6 +1114,8 @@
       "rating": 4.01,
       "stock": 22,
       "tags": ["cooking essentials"],
+      "brand": "Whole Foods",
+
       "sku": "Q6ZP1UY8",
       "weight": 8,
       "dimensions": {
@@ -1166,6 +1172,8 @@
       "rating": 4.71,
       "stock": 22,
       "tags": ["vegetables"],
+      "brand": "Whole Foods",
+
       "sku": "6KGF2K6Z",
       "weight": 9,
       "dimensions": {
@@ -1222,6 +1230,8 @@
       "rating": 2.74,
       "stock": 40,
       "tags": ["pet supplies", "dog food"],
+      "brand": "Whole Foods",
+
       "sku": "A6QRCH37",
       "weight": 2,
       "dimensions": {
@@ -1278,6 +1288,8 @@
       "rating": 4.46,
       "stock": 10,
       "tags": ["dairy"],
+      "brand": "Whole Foods",
+
       "sku": "YA617RI7",
       "weight": 4,
       "dimensions": {
@@ -1334,6 +1346,8 @@
       "rating": 4.83,
       "stock": 99,
       "tags": ["seafood"],
+      "brand": "Whole Foods",
+
       "sku": "XNIH1MTA",
       "weight": 8,
       "dimensions": {
@@ -1390,6 +1404,7 @@
       "rating": 4.28,
       "stock": 89,
       "tags": ["vegetables"],
+      "brand": "Whole Foods",
       "sku": "HU7S7VQ0",
       "weight": 7,
       "dimensions": {
@@ -1446,6 +1461,7 @@
       "rating": 4.43,
       "stock": 8,
       "tags": ["vegetables"],
+      "brand": "Whole Foods",
       "sku": "Y4RM3JCB",
       "weight": 2,
       "dimensions": {
@@ -1502,6 +1518,7 @@
       "rating": 3.5,
       "stock": 25,
       "tags": ["condiments"],
+      "brand": "Whole Foods",
       "sku": "BTBNIIOU",
       "weight": 9,
       "dimensions": {
@@ -1559,6 +1576,7 @@
       "stock": 76,
       "tags": ["desserts"],
       "sku": "VEZMU1EQ",
+      "brand": "Whole Foods",
       "weight": 5,
       "dimensions": {
         "width": 17.66,
@@ -1617,6 +1635,7 @@
       "rating": 3.41,
       "stock": 99,
       "tags": ["beverages"],
+      "brand": "Whole Foods",
       "sku": "M2K19S06",
       "weight": 2,
       "dimensions": {
@@ -1673,6 +1692,7 @@
       "rating": 4.37,
       "stock": 1,
       "tags": ["fruits"],
+      "brand": "Whole Foods",
       "sku": "0X3NORB9",
       "weight": 8,
       "dimensions": {
@@ -1729,6 +1749,7 @@
       "rating": 4.25,
       "stock": 0,
       "tags": ["fruits"],
+      "brand": "Whole Foods",
       "sku": "J074TE3H",
       "weight": 10,
       "dimensions": {
@@ -1785,6 +1806,7 @@
       "rating": 3.14,
       "stock": 57,
       "tags": ["dairy"],
+      "brand": "Whole Foods",
       "sku": "VOZKMF40",
       "weight": 1,
       "dimensions": {
@@ -1841,6 +1863,7 @@
       "rating": 3.19,
       "stock": 79,
       "tags": ["fruits"],
+      "brand": "Whole Foods",
       "sku": "0M1K7RRC",
       "weight": 4,
       "dimensions": {
@@ -1897,6 +1920,7 @@
       "rating": 2.54,
       "stock": 22,
       "tags": ["beverages", "coffee"],
+      "brand": "Whole Foods",
       "sku": "FP5H3065",
       "weight": 9,
       "dimensions": {
@@ -1953,6 +1977,7 @@
       "rating": 3.82,
       "stock": 8,
       "tags": ["vegetables"],
+      "brand": "Whole Foods",
       "sku": "W4NOBW45",
       "weight": 9,
       "dimensions": {
@@ -2009,6 +2034,7 @@
       "rating": 3.91,
       "stock": 65,
       "tags": ["health supplements"],
+      "brand": "Whole Foods",
       "sku": "BT2QOWKZ",
       "weight": 2,
       "dimensions": {
@@ -2065,6 +2091,7 @@
       "rating": 4.08,
       "stock": 86,
       "tags": ["vegetables"],
+      "brand": "Whole Foods",
       "sku": "TAF870KJ",
       "weight": 2,
       "dimensions": {
@@ -2121,6 +2148,7 @@
       "rating": 3.94,
       "stock": 49,
       "tags": ["grains"],
+      "brand": "Whole Foods",
       "sku": "905JXMXM",
       "weight": 1,
       "dimensions": {
@@ -2177,6 +2205,7 @@
       "rating": 4.59,
       "stock": 78,
       "tags": ["beverages"],
+      "brand": "Whole Foods",
       "sku": "I1ZNSLXJ",
       "weight": 9,
       "dimensions": {
@@ -2234,6 +2263,7 @@
       "stock": 9,
       "tags": ["fruits"],
       "sku": "LPP7I4JZ",
+      "brand": "Whole Foods",
       "weight": 4,
       "dimensions": {
         "width": 20.82,
@@ -2289,6 +2319,7 @@
       "rating": 4.55,
       "stock": 97,
       "tags": ["household essentials"],
+      "brand": "Whole Foods",
       "sku": "IQEZWXMJ",
       "weight": 3,
       "dimensions": {
@@ -2346,6 +2377,7 @@
       "rating": 2.93,
       "stock": 95,
       "tags": ["beverages"],
+      "brand": "Whole Foods",
       "sku": "LZG5PPHA",
       "weight": 2,
       "dimensions": {
@@ -2402,6 +2434,7 @@
       "rating": 3.56,
       "stock": 62,
       "tags": ["home decor", "swing"],
+      "brand": "Whole Foods",
       "sku": "MBEK52ST",
       "weight": 8,
       "dimensions": {
@@ -2460,6 +2493,7 @@
       "rating": 3.84,
       "stock": 34,
       "tags": ["home decor", "photo frame"],
+      "brand": "Whole Foods",
       "sku": "EZOJC792",
       "weight": 4,
       "dimensions": {
@@ -2516,6 +2550,7 @@
       "rating": 3.61,
       "stock": 89,
       "tags": ["home decor", "artificial plants"],
+      "brand": "Whole Foods",
       "sku": "LLNHNIFU",
       "weight": 9,
       "dimensions": {
@@ -2574,6 +2609,7 @@
       "rating": 3.33,
       "stock": 70,
       "tags": ["home decor", "plant accessories"],
+      "brand": "Whole Foods",
       "sku": "M8IWE8MF",
       "weight": 8,
       "dimensions": {
@@ -2633,6 +2669,7 @@
       "rating": 4.56,
       "stock": 84,
       "tags": ["home decor", "lighting"],
+      "brand": "Whole Foods",
       "sku": "0K9UDIUB",
       "weight": 2,
       "dimensions": {
@@ -2689,6 +2726,7 @@
       "rating": 4.4,
       "stock": 0,
       "tags": ["kitchen tools", "utensils"],
+      "brand": "Whole Foods",
       "sku": "MYIWU1I6",
       "weight": 4,
       "dimensions": {
@@ -2745,6 +2783,7 @@
       "rating": 3.62,
       "stock": 42,
       "tags": ["drinkware", "cups"],
+      "brand": "Whole Foods",
       "sku": "1CSCC3UH",
       "weight": 8,
       "dimensions": {
@@ -2802,6 +2841,7 @@
       "rating": 2.88,
       "stock": 17,
       "tags": ["kitchen tools", "utensils"],
+      "brand": "Kitnchens",
       "sku": "0TDFNB1Q",
       "weight": 6,
       "dimensions": {
@@ -2849,6 +2889,10 @@
       "thumbnail": "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Whisk/thumbnail.png"
     }
   ],
-
-  "total": 50
+  "productFilters": {
+    "category": ["kitchen-accessories"],
+    "tags": ["kitchen tools", "utensils"],
+    "price": ["9.99", "99.99"]
+  },
+  "total": ["50"]
 }

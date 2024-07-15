@@ -28,7 +28,8 @@ const SortAndViewControls = ({
   viewType,
   setViewType,
 }) => {
-  console.log("Current viewType:", viewType);
+  // console.log("Current viewType:", viewType);
+  // console.log("Sort order set to:", sortOrder);
 
   return (
     <Box
@@ -67,7 +68,7 @@ const SortAndViewControls = ({
       <Box>
         <IconButton
           onClick={() => {
-            console.log("Switching to grid view");
+            // console.log("Switching to grid view");
             setViewType("grid");
           }}
           color={viewType === "grid" ? "primary" : "default"}
@@ -76,7 +77,7 @@ const SortAndViewControls = ({
         </IconButton>
         <IconButton
           onClick={() => {
-            console.log("Switching to list view");
+            // console.log("Switching to list view");
             setViewType("list");
           }}
           color={viewType === "list" ? "primary" : "default"}
