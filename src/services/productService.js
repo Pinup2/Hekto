@@ -166,28 +166,22 @@ export const fetchProductsByCategory = async (category) => {
 //   }
 // };
 //function that will return filters (as endpoint)
-export const fetchProducts = async () => {
-  setLoading(true);
+
+const defaultQuery = "_page=1&_limit=10";
+export const fetchProducts = async ({ query }) => {
+  const currentPage = 1;
+  const productsPerPage = 10;
   try {
     const response = await fetch(
-      `http://localhost:3000/products?_page=${currentPage}&_limit=${productsPerPage}`
+      `http://localhost:3000/products?${defaultQuery}${query}`
     );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const newProducts = await response.json();
-    if (JSON.stringify(newProducts) !== JSON.stringify(products)) {
-      const response = await fetch(
-        `http://localhost:3000/products?_start=${startIndex}&_end=${endIndex}`
-      );
-      const totalCount = response.headers.get("X-Total-Count");
-      s;
-      // setTotalProducts(totalCount.length); // Update this line to match how you calculate total products
-    }
+
+    return response.json();
   } catch (error) {
     console.error("Failed to fetch products:", error);
-    setError(error);
   } finally {
-    setLoading(false);
   }
 };
