@@ -12,6 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <DevSupport ComponentPreviews={ComponentPreviews}
                         useInitialHook={useInitial}
             >
+
                 <ProductPage/>
             </DevSupport>
         </BrowserRouter>

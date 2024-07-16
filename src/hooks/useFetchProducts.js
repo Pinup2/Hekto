@@ -1,14 +1,14 @@
 
-import { useState, useEffect } from "react";
+import {useState, useEffect, useMemo} from "react";
 
 export default function useFetchProducts({ productsPerPage=10, currentPage=1, filters = {} }) {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
   const [error, setError] = useState(null);
+  const filtersString = useMemo(()=> (JSON.stringify(filters)), [filters]);
 
   useEffect(() => {
     async function fetchProducts() {
-      setError(null);
 
       const params = {
         _page: currentPage,
@@ -35,7 +35,7 @@ export default function useFetchProducts({ productsPerPage=10, currentPage=1, fi
     }
 
     fetchProducts();
-  }, [productsPerPage, currentPage, JSON.stringify(filters)]);
+  }, [productsPerPage, currentPage, filtersString]);
 
   return { products, totalProducts,  error };
 }

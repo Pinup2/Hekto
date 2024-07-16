@@ -2890,7 +2890,6 @@
     }
   ],
   "productFilters": {
-    "category": ["kitchen-accessories"],
     "tags": ["kitchen tools", "utensils"],
     "price": ["9.99", "99.99"]
   },
