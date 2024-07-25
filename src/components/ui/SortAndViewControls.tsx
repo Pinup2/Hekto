@@ -79,8 +79,8 @@ const SortAndViewControls: React.FC<SortAndViewControlsProps> = ({
           onChange={onSortChange}
           label="Sort By"
         >
-          <MenuItem value="priceLowHigh">Price: Low → High</MenuItem>
-          <MenuItem value="priceHighLow">Price: High → Low</MenuItem>
+          <MenuItem value="price">Price: Low → High</MenuItem>
+          <MenuItem value="-price">Price: High → Low</MenuItem>
         </Select>
       </FormControl>
 

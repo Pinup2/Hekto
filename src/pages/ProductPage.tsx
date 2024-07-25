@@ -9,16 +9,24 @@ import { useListerContext } from "../context/lister";
 import useUrlParams from "../hooks/useUrlParams";
 
 const ProductPage = () => {
-  const { products, totalProducts, loading, error, fetchProducts } =
-    useProductFetch();
+  const {
+    products,
+    totalProducts,
+    loading,
+    error,
+    fetchProducts,
+    first,
+    last,
+    next,
+    pages,
+    prev,
+  } = useProductFetch();
   const { query } = useListerContext();
 
   const [sortOrder, setSortOrder] = useState(
-    new URLSearchParams(query).get("_sort") || "price"
+    new URLSearchParams(query).get("_sort")
   );
-  const [order, setOrder] = useState(
-    new URLSearchParams(query).get("_order") || "asc"
-  );
+
   const { handleFilterChange, getFiltersFromUrl } = useUrlParams();
   const [viewType, setViewType] = useState("grid");
 
@@ -26,7 +34,7 @@ const ProductPage = () => {
     parseInt(new URLSearchParams(query).get("_page") || "1", 10)
   );
   const [perPage, setPerPage] = useState(
-    parseInt(new URLSearchParams(query).get("_limit") || "10", 10)
+    parseInt(new URLSearchParams(query).get("_per_page") || "10", 10)
   );
 
   useEffect(() => {
@@ -34,11 +42,6 @@ const ProductPage = () => {
 
     fetchProducts();
   }, [fetchProducts, query]);
-
-  useEffect(() => {
-    const { page: currentPage } = getFiltersFromUrl();
-    setPage(parseInt(currentPage || "1", 10));
-  }, [query, getFiltersFromUrl, setPage]);
 
   const handleFiltersChange = (newFilters: any) => {
     Object.entries(newFilters).forEach(([key, value]) => {
@@ -54,16 +57,13 @@ const ProductPage = () => {
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newPerPage = event.target.value;
     setPerPage(parseInt(newPerPage, 10));
-    handleFilterChange("_limit", newPerPage);
+    handleFilterChange("_per_page", newPerPage);
   };
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
-    const newSortOrder = "price";
-    const newOrder = value === "priceHighLow" ? "desc" : "asc";
-    setSortOrder(newSortOrder);
-    setOrder(newOrder);
-    handleFilterChange("_sort", newSortOrder);
-    handleFilterChange("_order", newOrder);
+    setSortOrder(value);
+
+    handleFilterChange("_sort", value);
   };
 
   return (
@@ -72,7 +72,6 @@ const ProductPage = () => {
         <Sidebar setFilters={handleFiltersChange} />
 
         <div className="product-listing">
-          <LayoutViewControls />
           <SortAndViewControls
             perPage={perPage}
             sortOrder={sortOrder}
@@ -90,6 +89,10 @@ const ProductPage = () => {
             total={totalProducts}
             page={page}
             onChangePage={handleChangePage}
+            prev={prev}
+            last={last}
+            next={next}
+            pages={pages}
           />
         </div>
       </div>

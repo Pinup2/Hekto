@@ -5,13 +5,14 @@ import Stack from "@mui/material/Stack";
 interface CustomPaginationProps {
   total: number;
   page: number;
+  pages: number;
   onChangePage: (newPage: number) => void;
 }
 
 function CustomPagination({
-  total,
   page,
   onChangePage,
+  pages,
 }: CustomPaginationProps) {
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -23,7 +24,9 @@ function CustomPagination({
   return (
     <Stack spacing={2}>
       <Pagination
-        count={Math.ceil(total / 10)}
+        count={pages}
+        showFirstButton
+        showLastButton
         page={page}
         onChange={handlePageChange}
         color="primary"
