@@ -2,7 +2,6 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -14,6 +13,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { Button, Container } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   display: "flex",
@@ -198,8 +198,15 @@ const Navbar: React.FC = () => (
             Hekto
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <MenuItem>Home</MenuItem>
-            <MenuItem>Products</MenuItem>
+            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+              <MenuItem>Home</MenuItem>
+            </Link>
+            <Link
+              to="/products"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <MenuItem>Products</MenuItem>
+            </Link>
             <MenuItem>Blog</MenuItem>
             <MenuItem>Contact</MenuItem>
           </Box>

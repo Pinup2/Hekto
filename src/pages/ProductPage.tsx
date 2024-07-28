@@ -6,6 +6,7 @@ import CustomPagination from "../components/ui/Pagination";
 import useProductFetch from "../hooks/useProductFetch";
 import { useListerContext } from "../context/lister";
 import { useUrlUpdater } from "../services/urlUtils";
+
 import {
   Alert,
   Box,
@@ -43,8 +44,8 @@ const ProductPage = () => {
   //updates and url and fetch query
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    setQuery(`_page=${currentPage}&_per_page=10`);
-    updateUrl(`_page=${newPage}&_per_page=10`);
+    setQuery(`?_page=${currentPage}&_per_page=10`);
+    updateUrl(`?_page=${newPage}&_per_page=10`);
   };
 
   const breadcrumbs = [

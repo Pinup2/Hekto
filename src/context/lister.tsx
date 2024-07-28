@@ -28,7 +28,7 @@ const listerContext = {
 const ListerContext = createContext<IListerContext>(listerContext);
 
 export const ListerProvider = ({ children }: PropsWithChildren) => {
-  const [query, setQuery] = useState<string>("_page=1&_per_page=10");
+  const [query, setQuery] = useState<string>("?_page=1&_per_page=10");
   const [viewType, setViewType] = useState<string>("grid");
   const { updateUrl } = useUrlUpdater();
 

@@ -19,7 +19,7 @@ const useProductFetch = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:3000/products?${query}`);
+      const response = await fetch(`http://localhost:3000/products${query}`);
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
       const { data, items, first, last, next, pages, prev } =

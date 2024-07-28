@@ -25,7 +25,7 @@ const SortAndViewControls: React.FC<SortAndViewControlsProps> = ({
   const [sortOrder, setSortOrder] = useState("price");
 
   const updateQuery = (page: number = 1) => {
-    const query = `_page=${page}&_per_page=${perPage}&_sort=${sortOrder}`;
+    const query = `?_page=${page}&_per_page=${perPage}&_sort=${sortOrder}`;
     updateUrl(query);
     setQuery(query);
     fetchProducts(query);
