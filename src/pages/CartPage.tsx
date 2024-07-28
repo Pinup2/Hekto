@@ -4,6 +4,7 @@ import { useCart } from "../context/cardContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import Layout from "../Layout/layout";
 
 
 const CartItemContainer = styled(Paper)(({ theme }) => ({
@@ -54,10 +55,16 @@ const CartPage: React.FC = () => {
   }, [cartItems, navigate]);
 
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const shipping = 100; // Example shipping cost
+  const shipping = 100; 
   const total = subtotal + shipping;
 
+
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/products" },
+  ];
   return (
+    <Layout breadcrumbs={breadcrumbs}>
     <Box sx={{ padding: "20px", display: 'flex', justifyContent: 'space-between' }}>
       <Box sx={{ flex: 3 }}>
         <Typography variant="h4" gutterBottom>
@@ -125,6 +132,7 @@ const CartPage: React.FC = () => {
         </Button>
       </CartSummary>
     </Box>
+    </Layout>
   );
 };
 

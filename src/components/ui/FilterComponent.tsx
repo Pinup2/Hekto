@@ -4,7 +4,6 @@ import {
   FormGroup,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { useListerContext } from "../../context/lister";
 import { useUrlUpdater } from "../../services/urlUtils";
 

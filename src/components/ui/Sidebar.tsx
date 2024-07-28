@@ -1,4 +1,3 @@
-import React from "react";
 import FilterComponent from "../ui/FilterComponent";
 import RangeFilterComponent from "../ui/RangeFilterComponent";
 import { useFetchFilters } from "../../hooks/useFetchFilters";
