@@ -181,7 +181,12 @@ const Navbar: React.FC = () => (
                 Wishlist
               </Typography>
               <FavoriteBorder sx={{ color: "white" }} />
-              <ShoppingCart sx={{ color: "white" }} />
+              <Link
+                to="/products"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <ShoppingCart sx={{ color: "white" }} />
+              </Link>
             </Box>
           </Box>
         </Toolbar>

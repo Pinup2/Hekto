@@ -17,6 +17,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Product } from "../types/types";
 import ProductCard from "../components/ui/ProductCard";
 import Layout from "../Layout/layout";
+import { useCart } from "../context/cardContext";
 
 const StyledImage = styled("img")({
   width: "528px",
@@ -32,6 +33,7 @@ const ProductDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tabIndex, setTabIndex] = useState(0);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -102,8 +104,18 @@ const ProductDetailPage: React.FC = () => {
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
-    { label: product.title, href: `/product/${product.id}` },
   ];
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        quantity: 1,
+        image: product.images[0],
+      });
+    }
+  };
 
   return (
     <Layout breadcrumbs={breadcrumbs}>
@@ -150,7 +162,12 @@ const ProductDetailPage: React.FC = () => {
               {product.description}
             </Typography>
             <Box display="flex" alignItems="center" mt={2}>
-              <Button variant="contained" color="primary" sx={{ mr: 2 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ mr: 2 }}
+                onClick={handleAddToCart}
+              >
                 Add to Cart
               </Button>
               <IconButton aria-label="add to wishlist">
