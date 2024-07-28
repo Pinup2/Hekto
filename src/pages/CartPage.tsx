@@ -1,7 +1,36 @@
-import React from "react";
-import { Box, Typography, Button, Grid, IconButton } from "@mui/material";
+import React, { useEffect } from "react";
+import { Box, Typography, Button,  IconButton, Paper } from "@mui/material";
 import { useCart } from "../context/cardContext";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
+
+
+const CartItemContainer = styled(Paper)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: theme.spacing(2),
+  borderRadius: theme.spacing(1),
+  marginBottom: theme.spacing(2),
+}));
+
+const CartItemDetails = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+}));
+
+const CartItemImage = styled('img')({
+  width: 100,
+  height: 100,
+  marginRight: 20,
+});
+
+const CartSummary = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderRadius: theme.spacing(1),
+  marginTop: theme.spacing(2),
+}));
 
 const CartPage: React.FC = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
@@ -13,81 +42,88 @@ const CartPage: React.FC = () => {
   const handleQuantityChange = (id: string, quantity: number) => {
     updateQuantity(id, quantity);
   };
+  const navigate = useNavigate();
 
-  if (cartItems.length === 0) {
-    return (
-      <Box sx={{ padding: "20px" }}>
-        <Typography variant="h4">Your Cart is Empty</Typography>
-      </Box>
-    );
-  }
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      const timer = setTimeout(() => {
+        navigate("/products");
+      }, 3000); 
+      return () => clearTimeout(timer); 
+    }
+  }, [cartItems, navigate]);
+
+  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const shipping = 100; // Example shipping cost
+  const total = subtotal + shipping;
 
   return (
-    <Box sx={{ padding: "20px" }}>
-      <Typography variant="h4" gutterBottom>
-        Shopping Cart
-      </Typography>
-      <Grid container spacing={2}>
+    <Box sx={{ padding: "20px", display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ flex: 3 }}>
+        <Typography variant="h4" gutterBottom>
+          Shopping Cart
+        </Typography>
         {cartItems.map((item) => (
-          <Grid item xs={12} key={item.id}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              p={2}
-              border={1}
-              borderColor="grey.300"
-              borderRadius={4}
-            >
-              <Box display="flex" alignItems="center">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    marginRight: "20px",
-                  }}
-                />
-                <Box>
-                  <Typography variant="h6">{item.title}</Typography>
-                  <Typography variant="body1">
-                    ${item.price.toFixed(2)}
-                  </Typography>
-                </Box>
+          <CartItemContainer key={item.id} elevation={3}>
+            <CartItemDetails>
+              <CartItemImage src={item.image} alt={item.title} />
+              <Box>
+                <Typography variant="h6">{item.title}</Typography>
+                <Typography variant="body1">${item.price.toFixed(2)}</Typography>
               </Box>
-              <Box display="flex" alignItems="center">
-                <Button
-                  onClick={() =>
-                    handleQuantityChange(item.id, item.quantity - 1)
-                  }
-                  disabled={item.quantity <= 1}
-                >
-                  -
-                </Button>
-                <Typography variant="body1" sx={{ mx: 2 }}>
-                  {item.quantity}
-                </Typography>
-                <Button
-                  onClick={() =>
-                    handleQuantityChange(item.id, item.quantity + 1)
-                  }
-                >
-                  +
-                </Button>
-                <IconButton onClick={() => handleRemoveFromCart(item.id)}>
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
+            </CartItemDetails>
+            <Box display="flex" alignItems="center">
+              <Button
+                onClick={() =>
+                  handleQuantityChange(item.id, item.quantity - 1)
+                }
+                disabled={item.quantity <= 1}
+              >
+                -
+              </Button>
+              <Typography variant="body1" sx={{ mx: 2 }}>
+                {item.quantity}
+              </Typography>
+              <Button
+                onClick={() =>
+                  handleQuantityChange(item.id, item.quantity + 1)
+                }
+              >
+                +
+              </Button>
+              <Typography variant="body1" sx={{ ml: 4 }}>
+                ${(item.price * item.quantity).toFixed(2)}
+              </Typography>
+              <IconButton onClick={() => handleRemoveFromCart(item.id)}>
+                <DeleteIcon />
+              </IconButton>
             </Box>
-          </Grid>
+          </CartItemContainer>
         ))}
-      </Grid>
-      <Box mt={4}>
-        <Button variant="contained" color="primary" onClick={clearCart}>
+        <Button variant="contained" color="secondary" onClick={clearCart} sx={{ mt: 2 }}>
           Clear Cart
         </Button>
       </Box>
+      <CartSummary elevation={3} sx={{ flex: 1, marginLeft: 4 }}>
+        <Typography variant="h5" gutterBottom>
+          Summary
+        </Typography>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="body1">Subtotal:</Typography>
+          <Typography variant="body1">${subtotal.toFixed(2)}</Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between" mt={1}>
+          <Typography variant="body1">Shipping:</Typography>
+          <Typography variant="body1">${shipping.toFixed(2)}</Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between" mt={2}>
+          <Typography variant="h6">Total:</Typography>
+          <Typography variant="h6">${total.toFixed(2)}</Typography>
+        </Box>
+        <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+          Proceed to Checkout
+        </Button>
+      </CartSummary>
     </Box>
   );
 };

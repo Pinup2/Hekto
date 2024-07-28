@@ -4,6 +4,8 @@ export const useUrlUpdater = () => {
   const navigate = useNavigate();
 
   const updateUrl = (newQuery: string) => {
+
+
     navigate(`${newQuery}`, { replace: true });
   };
 

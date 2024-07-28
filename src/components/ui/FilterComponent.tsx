@@ -40,8 +40,10 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
       params.delete(category);
       selectedRanges.forEach((value) => params.append(category, value));
 
-      // return params.toString();
-      const newQuery = params.toString();
+      let newQuery = params.toString();
+      if (!newQuery.startsWith('?') && newQuery) {
+        newQuery = `?${newQuery}`;
+      }
       updateUrl(newQuery);
       return newQuery;
     });

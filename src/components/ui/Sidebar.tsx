@@ -36,11 +36,13 @@ const Sidebar: React.FC = () => {
           {filter.isRange ? (
             <RangeFilterComponent
               key={key}
+              title={filter.name} 
               values={filter.values}
               showStars={key === "rating"}
             />
           ) : (
-            <FilterComponent key={key} category={key} options={filter.values} />
+            <FilterComponent key={key} title={filter.name} category={key} options={filter.values} />
+
           )}
         </Box>
       ))}

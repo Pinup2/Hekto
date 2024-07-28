@@ -16,16 +16,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <CartProvider>
           <ListerProvider>
+        <CartProvider>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/products" element={<ProductPage />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<CartPage />} />
             </Routes>
-          </ListerProvider>
         </CartProvider>
+          </ListerProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

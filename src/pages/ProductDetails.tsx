@@ -107,7 +107,9 @@ const ProductDetailPage: React.FC = () => {
   ];
   const handleAddToCart = () => {
     if (product) {
+      console.log("Adding product to cart:", product);
       addToCart({
+
         id: product.id,
         title: product.title,
         price: product.price,

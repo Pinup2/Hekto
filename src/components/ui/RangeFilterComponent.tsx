@@ -6,7 +6,6 @@ import {
 } from "@mui/material";
 import { useListerContext } from "../../context/lister.js";
 import Rating from "@mui/material/Rating";
-import { useEffect } from "react";
 interface Range {
   from: string;
   to: string;
@@ -26,20 +25,13 @@ const RangeFilterComponent = ({
   showStars,
 }: RangeFilterComponentProps) => {
   const { setQuery, query, updateUrl } = useListerContext();
-  // useEffect(() => {
-  //   updateUrl(query); // Update the URL whenever the query changes
-  // }, [query, updateUrl]);
+  
 
   const handleCheckboxChange = (to: string, from: string) => {
     const segment = `&${title.toLowerCase()}_gte=${from}&${title.toLowerCase()}_lte=${to}`;
+    console.log('Checkbox change:', { to, from, segment });
 
-    //!!!!
-    ///ASK
-
-    //   if (query.includes(segment)) {
-    //     setQuery((prevValue) => prevValue.replace(segment, ""));
-    //   } else setQuery((prevValue) => prevValue + segment);
-    // };
+  
 
     setQuery((prevValue) => {
       let newQuery;
@@ -47,7 +39,11 @@ const RangeFilterComponent = ({
         newQuery = prevValue.replace(segment, "");
       } else {
         newQuery = prevValue + segment;
+
+
       }
+      console.log('New query:', newQuery);
+
       updateUrl(newQuery); // called with the latest query
       return newQuery;
     });
