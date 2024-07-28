@@ -27,26 +27,6 @@ const SortAndViewControls: React.FC<SortAndViewControlsProps> = ({
   // onViewChange,
 }) => {
   return (
-    // <div className="sort-and-view-controls">
-    //   <div className="per-page">
-    //     <label htmlFor="per-page">Per Page</label>
-    //     <select id="per-page" value={perPage} onChange={onPerPageChange}>
-    //       <option value="10">10</option>
-    //       <option value="20">20</option>
-    //       <option value="50">50</option>
-    //     </select>
-    //   </div>
-    //   <div className="sort-by">
-    //     <label htmlFor="sort-by">Sort By</label>
-    //     <select id="sort-by" value={sortOrder} onChange={onSortChange}>
-    //       <option value="priceLowHigh">Price: Low &rarr; High</option>
-    //       <option value="priceHighLow">Price: High &rarr; Low</option>
-    //     </select>
-    //   </div>
-    //   <div className="view-type">
-    //     <label>View</label>
-    //   </div>
-    // </div>
     <div
       style={{
         display: "flex",

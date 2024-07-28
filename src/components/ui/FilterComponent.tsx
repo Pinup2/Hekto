@@ -6,12 +6,13 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useListerContext } from "../../context/lister";
-import useUrlParams from "../../hooks/useUrlParams"; // Adjust the path as needed
+import { useUrlUpdater } from "../../services/urlUtils";
 
 interface FilterComponentProps {
   title: string;
   category: string;
   options: string[];
+  onFilterChange: (segment: string) => void;
 }
 
 const FilterComponent: React.FC<FilterComponentProps> = ({
@@ -20,7 +21,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
   options,
 }) => {
   const { setQuery } = useListerContext();
-  const { updateUrl } = useUrlParams();
+  const { updateUrl } = useUrlUpdater();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery((prevQuery) => {

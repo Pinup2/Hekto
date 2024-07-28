@@ -6,7 +6,7 @@ import SortAndViewControls from "../components/ui/SortAndViewControls";
 import CustomPagination from "../components/ui/Pagination";
 import useProductFetch from "../hooks/useProductFetch";
 import { useListerContext } from "../context/lister";
-import useUrlParams from "../hooks/useUrlParams";
+import { useUrlUpdater } from "../services/urlUtils";
 
 const ProductPage = () => {
   const {
@@ -21,74 +21,41 @@ const ProductPage = () => {
     pages,
     prev,
   } = useProductFetch();
-  const { query } = useListerContext();
 
-  const [sortOrder, setSortOrder] = useState(
-    new URLSearchParams(query).get("_sort")
-  );
-
-  const { handleFilterChange, getFiltersFromUrl } = useUrlParams();
-  const [viewType, setViewType] = useState("grid");
-
-  const [page, setPage] = useState(
-    parseInt(new URLSearchParams(query).get("_page") || "1", 10)
-  );
-  const [perPage, setPerPage] = useState(
-    parseInt(new URLSearchParams(query).get("_per_page") || "10", 10)
-  );
+  const { query, setQuery } = useListerContext();
+  const [currentPage, setCurrentPage] = useState(first);
+  const { updateUrl } = useUrlUpdater();
 
   useEffect(() => {
-    console.log("ProductPage - Fetching products with query:", query); // Log the query before fetching products
-
     fetchProducts();
-  }, [fetchProducts, query]);
+  }, [fetchProducts, query, currentPage]);
 
-  const handleFiltersChange = (newFilters: any) => {
-    Object.entries(newFilters).forEach(([key, value]) => {
-      handleFilterChange(key, value);
-    });
-  };
-  const handleChangePage = (newPage: number) => {
-    handleFilterChange("_page", newPage.toString());
-    setPage(newPage);
-    console.log();
-  };
-
-  const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newPerPage = event.target.value;
-    setPerPage(parseInt(newPerPage, 10));
-    handleFilterChange("_per_page", newPerPage);
-  };
-  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setSortOrder(value);
-
-    handleFilterChange("_sort", value);
+  //updates and url and fetch query
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    setQuery(`_page=${currentPage}&_per_page=10`);
+    updateUrl(`_page=${newPage}&_per_page=10`);
   };
 
   return (
     <>
       <div className="product-page">
-        <Sidebar setFilters={handleFiltersChange} />
+        <Sidebar />
 
         <div className="product-listing">
-          <SortAndViewControls
-            perPage={perPage}
-            sortOrder={sortOrder}
-            onPerPageChange={handlePerPageChange}
-            onSortChange={handleSortChange}
-          />
+          <SortAndViewControls />
           {loading ? (
             <p>Loading...</p>
           ) : error ? (
             <p>Error: {error}</p>
           ) : (
-            <ProductList products={products} viewType={viewType} />
+            <ProductList products={products} />
           )}
+          {/* TODO delete unnecesary props */}
           <CustomPagination
             total={totalProducts}
-            page={page}
-            onChangePage={handleChangePage}
+            page={currentPage}
+            onChangePage={handlePageChange}
             prev={prev}
             last={last}
             next={next}

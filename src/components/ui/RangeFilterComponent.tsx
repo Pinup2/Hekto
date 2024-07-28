@@ -6,11 +6,10 @@ import {
 } from "@mui/material";
 import { useListerContext } from "../../context/lister.js";
 import Rating from "@mui/material/Rating";
-import useUrlParams from "../../hooks/useUrlParams.js";
-
+import { useEffect } from "react";
 interface Range {
-  from: number | string;
-  to: number | string;
+  from: string;
+  to: string;
   name: string;
 }
 
@@ -18,6 +17,7 @@ interface RangeFilterComponentProps {
   title: string;
   values: Range[];
   showStars?: boolean;
+  onFilterChange: (segment: string) => void;
 }
 
 const RangeFilterComponent = ({
@@ -25,16 +25,22 @@ const RangeFilterComponent = ({
   values,
   showStars,
 }: RangeFilterComponentProps) => {
-  const { setQuery, query } = useListerContext();
-  const { updateUrl } = useUrlParams();
+  const { setQuery, query, updateUrl } = useListerContext();
+  // useEffect(() => {
+  //   updateUrl(query); // Update the URL whenever the query changes
+  // }, [query, updateUrl]);
 
-  // const {fetchProducts} =  useProductFetch();
   const handleCheckboxChange = (to: string, from: string) => {
     const segment = `&${title.toLowerCase()}_gte=${from}&${title.toLowerCase()}_lte=${to}`;
+
+    //!!!!
+    ///ASK
+
     //   if (query.includes(segment)) {
     //     setQuery((prevValue) => prevValue.replace(segment, ""));
     //   } else setQuery((prevValue) => prevValue + segment);
     // };
+
     setQuery((prevValue) => {
       let newQuery;
       if (prevValue.includes(segment)) {
@@ -42,10 +48,11 @@ const RangeFilterComponent = ({
       } else {
         newQuery = prevValue + segment;
       }
-      updateUrl(newQuery);
+      updateUrl(newQuery); // called with the latest query
       return newQuery;
     });
   };
+
   return (
     <div className="filter-section">
       <Typography variant="h6">{title}</Typography>
@@ -58,9 +65,7 @@ const RangeFilterComponent = ({
                 showStars ? (
                   <Checkbox
                     name={name}
-                    onChange={() =>
-                      handleCheckboxChange(to.toString(), from.toString())
-                    }
+                    onChange={() => handleCheckboxChange(to, from)}
                     icon={
                       <Rating
                         name="read-only"
@@ -77,14 +82,19 @@ const RangeFilterComponent = ({
                     }
                   />
                 ) : (
-                  <Checkbox
-                    onChange={() =>
-                      handleCheckboxChange(to.toString(), from.toString())
-                    }
-                  />
+                  <Checkbox onChange={() => handleCheckboxChange(to, from)} />
                 )
               }
-              label={showStars ? "" : name}
+              label={
+                showStars ? (
+                  <Checkbox
+                    name={name}
+                    onChange={() => handleCheckboxChange(to, from)}
+                  />
+                ) : (
+                  name
+                )
+              }
             />
           );
         })}

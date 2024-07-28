@@ -1,9 +1,8 @@
-
 import { useListerContext } from "../../context/lister.js";
 import { Box, Grid } from "@mui/material";
 import ProductCard from "../ui/ProductCard.js";
 
-const ProductList = ({ products }: any) => {
+const ProductList = ({ products }) => {
   console.log("Products in ProductList:", products);
   const { viewType } = useListerContext();
 

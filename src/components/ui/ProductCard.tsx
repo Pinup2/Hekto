@@ -7,6 +7,7 @@ import {
   Typography,
   IconButton,
   Box,
+  Paper,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -22,28 +23,28 @@ const ProductCard = ({ product }) => {
   const { viewType } = useListerContext();
 
   return (
-    <Card style={{ marginBottom: viewType === "grid" ? "0" : "20px", width:"auto", height: viewType === "grid" ? "720px" : "450px", margin:"50px 0 0 0"}}>
+    <Paper>
       {product.images && product.images.length > 0 ? (
         <CardMedia
           component="img"
           image={product.images[0]}
           alt={product.title}
-          style={{
-            height: viewType === "grid" ? "345px" : "200px",
-            width: "100%",
-            objectFit: "contain", // Adjust objectFit as needed
-          }}
+          // style={{
+          //   height: viewType === "grid" ? "345px" : "200px",
+          //   width: "100%",
+          //   objectFit: "contain", // Adjust objectFit as needed
+          // }}
         />
       ) : (
         <CardMedia
           component="img"
           image="https://via.placeholder.com/150" // Placeholder image URL
           alt="Placeholder"
-          style={{
-            height: viewType === "grid" ? "345px" : "200px",
-            width: "100%",
-            objectFit: "contain", // Adjust objectFit as needed
-          }}
+          // style={{
+          //   height: viewType === "grid" ? "345px" : "200px",
+          //   width: "100%",
+          //   objectFit: "contain", // Adjust objectFit as needed
+          // }}
         />
       )}
       <CardContent>
@@ -85,7 +86,7 @@ const ProductCard = ({ product }) => {
           <CompareArrowsIcon />
         </IconButton>
       </CardActions>
-    </Card>
+    </Paper>
   );
 };
 
