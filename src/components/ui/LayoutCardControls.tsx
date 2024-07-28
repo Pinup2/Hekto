@@ -9,7 +9,8 @@ import {
   Theme,
 } from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";
-import ViewListIcon from "@mui/icons-material/ViewList";
+import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
+
 import { useListerContext } from "../../context/lister";
 
 const styles = {
@@ -32,33 +33,6 @@ const LayoutViewControls = () => {
       alignItems="center"
       padding={1}
     >
-      {/* <FormControl variant="outlined" sx={styles.formControl}>
-        <InputLabel>Per Page</InputLabel>
-        <Select
-          value={productsPerPage}
-          onChange={(e) => setProductsPerPage(e.target.value)}
-          label="Per Page"
-        >
-          {[10, 20, 50, 100].map((size) => (
-            <MenuItem key={size} value={size}>
-              {size}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <FormControl variant="outlined" sx={styles.formControl}>
-        <InputLabel>Sort By</InputLabel>
-        <Select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          label="Sort By"
-        >
-          <MenuItem value="priceHighLow">Price: High &gt; Low</MenuItem>
-          <MenuItem value="priceLowHigh">Price: Low &gt; High</MenuItem>
-        </Select>
-      </FormControl> */}
-
       <Box>
         <IconButton
           onClick={() => {
@@ -76,7 +50,7 @@ const LayoutViewControls = () => {
           }}
           color={viewType === "list" ? "primary" : "default"}
         >
-          <ViewListIcon />
+          <ViewAgendaOutlinedIcon />
         </IconButton>
       </Box>
     </Box>

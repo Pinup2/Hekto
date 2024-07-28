@@ -3,22 +3,23 @@ import { Box, Grid } from "@mui/material";
 import ProductCard from "../ui/ProductCard.js";
 
 const ProductList = ({ products }) => {
-  console.log("Products in ProductList:", products);
   const { viewType } = useListerContext();
 
   return (
-    <Box style={{ padding: "40px" }}>
+    <Box>
       {viewType === "grid" ? (
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           {products.map((product) => (
-            <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={product.id} item xs={12} sm={6} md={4}>
               <ProductCard product={product} viewType="grid" />
             </Grid>
           ))}
         </Grid>
       ) : (
         products.map((product) => (
-          <ProductCard key={product.id} product={product} viewType="list" />
+          <Box key={product.id} mb={2}>
+            <ProductCard product={product} viewType="list" />
+          </Box>
         ))
       )}
     </Box>
