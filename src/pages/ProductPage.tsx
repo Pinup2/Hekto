@@ -44,7 +44,7 @@ const ProductPage = () => {
   //updates and url and fetch query
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    setQuery(`?_page=${currentPage}&_per_page=10`);
+    setQuery(`?_page=${newPage}&_per_page=10`);
     updateUrl(`?_page=${newPage}&_per_page=10`);
   };
 

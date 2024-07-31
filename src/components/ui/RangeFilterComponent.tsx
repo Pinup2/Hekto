@@ -51,7 +51,6 @@ const RangeFilterComponent = ({
 
   return (
     <div className="filter-section">
-      <Typography variant="h6">{title}</Typography>
       <FormGroup>
         {values.map(({ name, to, from }) => {
           return (

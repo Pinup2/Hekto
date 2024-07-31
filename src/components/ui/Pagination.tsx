@@ -14,8 +14,6 @@ function CustomPagination({
   onChangePage,
   pages,
 }: CustomPaginationProps) {
-  const { updateUrl } = useUrlUpdater();
-
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     newPage: number

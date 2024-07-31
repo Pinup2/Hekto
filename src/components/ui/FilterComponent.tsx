@@ -24,9 +24,13 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery((prevQuery) => {
-      const params = new URLSearchParams(prevQuery);
+      const params = new URLSearchParams(prevQuery.replace('?', ""));
       const selectedRanges = params.getAll(category);
-
+      console.log("selected",  selectedRanges);
+      console.log("prev", prevQuery);
+      console.log("filter name", event.target.name);
+      
+      
       if (event.target.checked) {
         selectedRanges.push(event.target.name);
       } else {
@@ -35,6 +39,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
           selectedRanges.splice(index, 1);
         }
       }
+      
 
       params.delete(category);
       selectedRanges.forEach((value) => params.append(category, value));
@@ -50,7 +55,6 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
 
   return (
     <div className="filter-section">
-      <Typography variant="h6">{title}</Typography>
       <FormGroup>
         {options?.map((option) => (
           <FormControlLabel

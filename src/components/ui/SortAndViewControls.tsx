@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
   Select,
   Typography,
+  SelectChangeEvent,
 } from "@mui/material";
 import { useUrlUpdater } from "../../services/urlUtils";
 import { useListerContext } from "../../context/lister";
@@ -35,14 +35,12 @@ const SortAndViewControls: React.FC<SortAndViewControlsProps> = ({
     updateQuery();
   }, [perPage, sortOrder]);
 
-  const handlePerPageChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handlePerPageChange = (event: SelectChangeEvent<number>) => {
     setPerPage(event.target.value as number);
     updateQuery();
   };
 
-  const handleSortChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleSortChange = (event: SelectChangeEvent<string>) => {
     setSortOrder(event.target.value as string);
     updateQuery();
   };

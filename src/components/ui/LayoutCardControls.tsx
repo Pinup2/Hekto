@@ -1,9 +1,4 @@
-import {
-  
-  Box,
-  IconButton,
-  Theme,
-} from "@mui/material";
+import { Box, IconButton, Theme } from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
 
@@ -21,7 +16,7 @@ const styles = {
 
 const LayoutViewControls = () => {
   const { viewType, setViewType } = useListerContext();
-  console.log({ viewType });
+
   return (
     <Box
       display="flex"
