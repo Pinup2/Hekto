@@ -13,8 +13,9 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import { Badge, Button, Container } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/cardContext";
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   display: "flex",
@@ -60,7 +61,24 @@ const SearchButton = styled(Button)(({ theme }) => ({
 
 const Navbar: React.FC = () => {
   const { cartItems } = useCart();
-  const cartItemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
+  const cartItemCount = cartItems.reduce(
+    (count, item) => count + item.quantity,
+    0
+  );
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchTerm(event.target.value);
+  };
+  const handleSearch = () => {
+    if (searchTerm.trim() !== "") {
+      navigate(`/products?q=${searchTerm}`);
+    }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -225,9 +243,10 @@ const Navbar: React.FC = () => {
             <Search>
               <StyledInputBase
                 placeholder="Search…"
+                onChange={handleSearchInputChange}
                 inputProps={{ "aria-label": "search" }}
               />
-              <SearchButton>
+              <SearchButton onClick={handleSearch}>
                 <SearchIcon />
               </SearchButton>
             </Search>

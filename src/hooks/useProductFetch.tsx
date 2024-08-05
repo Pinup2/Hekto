@@ -15,31 +15,34 @@ const useProductFetch = () => {
   const [pages, setPages] = useState(0);
   const [prev, setPrev] = useState(0);
 
-  const fetchProducts = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`http://localhost:3000/products${query}`);
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      const { data, items, first, last, next, pages, prev } =
-        await response.json();
+  const fetchProducts = useCallback(
+    async (query = "") => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`http://localhost:3000/products${query}`);
+        if (!response.ok)
+          throw new Error(`HTTP error! status: ${response.status}`);
+        const { data, items, first, last, next, pages, prev } =
+          await response.json();
 
-      console.log("Products received:", data);
+        console.log("Search Query:", query);
 
-      setProducts(data);
-      setTotalProducts(items);
-      setFirst(first);
-      setLast(last);
-      setNext(next);
-      setPages(pages);
-      setPrev(prev);
-    } catch (error: any) {
-      setError(error.toString());
-    } finally {
-      setLoading(false);
-    }
-  }, [query]);
+        setProducts(data);
+        setTotalProducts(items);
+        setFirst(first);
+        setLast(last);
+        setNext(next);
+        setPages(pages);
+        setPrev(prev);
+      } catch (error: any) {
+        setError(error.toString());
+      } finally {
+        setLoading(false);
+      }
+    },
+    [query]
+  );
 
   return {
     products,

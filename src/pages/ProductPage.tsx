@@ -6,17 +6,9 @@ import CustomPagination from "../components/ui/Pagination";
 import useProductFetch from "../hooks/useProductFetch";
 import { useListerContext } from "../context/lister";
 import { useUrlUpdater } from "../services/urlUtils";
+import SearchBar from "../components/ui/SearchBar";
 
-import {
-  Alert,
-  Box,
-  Breadcrumbs,
-  CircularProgress,
-  Container,
-  Grid,
-  Link,
-  Typography,
-} from "@mui/material";
+import { Box, Breadcrumbs, Grid, Link, Typography } from "@mui/material";
 import Layout from "../Layout/layout";
 
 const ProductPage = () => {
@@ -36,16 +28,26 @@ const ProductPage = () => {
   const { query, setQuery } = useListerContext();
   const [currentPage, setCurrentPage] = useState(first);
   const { updateUrl } = useUrlUpdater();
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts, query, currentPage]);
+    const searchQuery = searchTerm ? `&title=${searchTerm}` : "";
+    const fullQuery = `?_page=${currentPage}&_per_page=10${searchQuery}`;
 
-  //updates and url and fetch query
+    console.log("Full Query:", fullQuery); // Debugging line
+
+    setQuery(fullQuery);
+    fetchProducts(fullQuery);
+    updateUrl(fullQuery);
+  }, [fetchProducts, currentPage, searchTerm]);
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+    setCurrentPage(1); // Reset to the first page on a new search
+  };
+
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    setQuery(`?_page=${newPage}&_per_page=10`);
-    updateUrl(`?_page=${newPage}&_per_page=10`);
   };
 
   const breadcrumbs = [
@@ -91,6 +93,7 @@ const ProductPage = () => {
               alignItems: "end",
             }}
           >
+            <SearchBar onSearch={handleSearch} />
             <SortAndViewControls fetchProducts={fetchProducts} />
             {loading ? (
               <Typography>Loading...</Typography>

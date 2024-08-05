@@ -2,6 +2,7 @@ import { useListerContext } from "../../context/lister.js";
 import { Box, Grid } from "@mui/material";
 import ProductCard from "../ui/ProductCard.js";
 import { Product } from "../../types/types";
+import { WidthFull } from "@mui/icons-material";
 
 interface ProductListProps {
   products: Product[];
@@ -11,7 +12,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
   const { viewType } = useListerContext();
 
   return (
-    <Box>
+    <Box sx={{ width: "100%" }}>
       {viewType === "grid" ? (
         <Grid container spacing={2}>
           {products?.map((product) => (

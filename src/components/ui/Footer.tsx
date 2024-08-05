@@ -14,7 +14,12 @@ const Footer = () => {
   return (
     <Box
       component="footer"
-      sx={{ backgroundColor: "#F8F8FD", mt: 4, py: 5, width: "100%" }}
+      sx={{
+        backgroundColor: "#F8F8FD",
+        mt: 4,
+        py: 5,
+        width: "100%",
+      }}
     >
       <Container>
         <Grid container spacing={4}>
